@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3 meses</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: "Playfair Display", serif;
+            background: linear-gradient(to bottom, #f7d1d1, #fff, #f7d1d1);
+            color: #333;
+            transition: all 0.5s ease;
+        }
+
+        /* Estilos para modo noche */
+        body[data-modo="noche"] {
+            background: linear-gradient(to bottom, #2c3e50, #34495e, #2c3e50);
+            color: #ecf0f1;
+        }
+
+        body[data-modo="noche"] header,
+        body[data-modo="noche"] footer {
+            background: #1a252f;
+        }
+
+        body[data-modo="noche"] .mes {
+            background: linear-gradient(135deg, #3498db, #8e44ad, #3498db);
+            color: #ecf0f1;
+        }
+
+        body[data-modo="noche"] .proximamente {
+            background: #2980b9;
+        }
+
+        body[data-modo="noche"] .proxi {
+            background: linear-gradient(135deg, #8e44ad, #3498db, #2980b9);
+        }
+
+        header {
+            background: #e99ca2;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            animation: pulse 3s infinite;
+            transition: all 0.5s ease;
+        }
+        
+        @keyframes pulse {
+            0% { letter-spacing: 2px; }
+            50% { letter-spacing: 4px; }
+            100% { letter-spacing: 2px; }
+        }
+
+        footer {
+            background: #e99ca2;
+            padding: 10px;
+            text-align: center;
+            color: white;
+            font-size: 14px;
+            margin-top: 40px;
+            transition: all 0.5s ease;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 26px;
+        }
+        .corazones {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.corazones span {
+    position: absolute;
+    bottom: -50px;
+    left: calc(100vw * var(--pos));
+    width: 20px;
+    height: 20px;
+    background: pink;
+    transform: rotate(45deg);
+    animation: subir 6s linear infinite;
+    opacity: 0.7;
+    border-radius: 5px;
+}
+
+.corazones span::before,
+.corazones span::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: pink;
+    border-radius: 50%;
+}
+
+.corazones span::before {
+    top: -10px;
+}
+
+.corazones span::after {
+    left: -10px;
+}
+
+@keyframes subir {
+    0% {
+        transform: translateY(0) rotate(45deg);
+    }
+    100% {
+        transform: translateY(-120vh) rotate(45deg);
+    }
+}
+
+        
+        .mes {
+            position: relative;
+            border-radius: 20px;
+            width: 220px;
+            height: 300px;
+            background: linear-gradient(135deg, #ffe3e3, #ffd6e8, #ffeaf6);
+            box-shadow: 1px 1px 12px #000;
+            transform: preserve-3d;
+            perspective: 2000px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            border: 3px solid rgba(255,255,255,0.8);
+            transition: all 0.5s ease;
+        }
+
+        .cover {
+            top: 0;
+            position: absolute;
+            background-color: lightgray;
+            color: white;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.5s;
+            transform-origin: 0;
+            box-shadow: 1px 1px 12px #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mes:hover .cover {
+            transition: all 0.5s;
+            transform: rotatey(-80deg);
+        }
+
+        .proximamente {
+            position: relative;
+            border-radius: 10px;
+            width: 220px;
+            height: 300px;
+            background: pink;
+            box-shadow: 1px 1px 12px #000;
+            transform: preserve-3d;
+            perspective: 2000px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            border: 3px solid rgba(255,255,255,0.8);
+            transition: all 0.5s ease;
+        }
+
+        .proxi {
+            top: 0;
+            position: absolute;
+            background: linear-gradient(135deg, #e8a8d8, #e58bb2, #ff0090);  
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.5s;
+            transform-origin: 0;
+            box-shadow: 1px 1px 12px #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .proximamente:hover .proxi {
+            transition: all 0.5s;
+            transform: rotatey(-80deg);
+        }
+
+        p {
+            font-size: 20px;
+            font-weight: bolder;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px; 
+            justify-content: center;
+            padding: 20px;
+        }
+        .contador {
+            text-align: center;
+            margin: 40px 0;
+            font-size: 24px;
+            color: #d35a6d;
+            font-weight: bold;
+        }
+        
+        #modo-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #e99ca2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        #modo-btn:hover {
+            background-color: #d88a90;
+        }
+
+        body[data-modo="noche"] #modo-btn {
+            background-color: #3498db;
+        }
+
+        body[data-modo="noche"] #modo-btn:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        Cris y Lore por siempre ❤️
+    </header>
+    <h2>Nuestros Momentos</h2>
+    <button id="modo-btn">Cambiar a Modo Noche</button>
+    <div class="corazones"></div>
+    <div class="container">
+        <div class="mes">
+            <p>Entraste en mi corazón de la forma más bonita que existe</p>
+            <div class="cover"
+                style="background-image: url('M1.jpeg');
+                       background-size: cover;
+                       background-position: center;">
+                <p>Primer mes</p>
+            </div>
+        </div>
+
+        <div class="mes">
+            <p>Me enamoré totalmente de ti mi amor</p>
+            <div class="cover"
+                style="background-image: url('M2.jpeg');
+                       background-size: cover;
+                       background-position: center;">
+                <p>Segundo mes</p>
+            </div>
+        </div>
+
+        <div class="mes">
+            <p>Eres tú con quien definitivamente quiero pasar el resto de mis dias</p>
+            <div class="cover"
+                style="background-image: url('M3.jpeg');
+                       background-size: cover;
+                       background-position: center;">
+                <p>Tercer mes</p>
+            </div>
+        </div>
+
+        <div class="proximamente">
+            <p>Venga, vamos por toda una vida juntos</p>
+            <div class="proxi">
+                <p>Próximamente</p>
+            </div>
+        </div>
+    </div>
+    <div class="contador">
+    <h2>Hemos estado juntos por <span id="dias"></span> días</h2>
+    </div>
+    <footer>
+        Hecho con cariño para ti
+    </footer>
+    
+    <script>
+        document.getElementById("modo-btn").onclick = function() {
+            const nuevoModo = document.body.dataset.modo === "noche" ? "dia" : "noche";
+            document.body.dataset.modo = nuevoModo;            
+            this.textContent = nuevoModo === "noche" ? "Cambiar a Modo Día" : "Cambiar a Modo Noche";
+        };
+
+        const inicio = new Date("2025-08-24");
+        const hoy = new Date();
+
+        const diferencia =
+        Math.floor((hoy - inicio) / (1000 * 60 * 60 * 24));
+
+        document.getElementById("dias").textContent = diferencia;
+
+        for (let i = 0; i < 20; i++) {
+        const h = document.createElement("span");
+        h.style.setProperty("--pos", Math.random());
+        h.style.animationDelay = (Math.random() * 5) + "s";
+        h.style.animationDuration = (4 + Math.random() * 4) + "s";
+        document.querySelector(".corazones").appendChild(h);
+}
+    </script>
+</body>
+</html>
