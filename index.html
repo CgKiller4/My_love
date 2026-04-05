@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Para mi preciosa</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
@@ -25,21 +25,24 @@
             background: #1a252f;
         }
 
-        body[data-modo="noche"] .card .front,
-        body[data-modo="noche"] .card .back {
+        body[data-modo="noche"] .card .front {
             background: linear-gradient(135deg, #2c3e50, #34495e);
+        }
+
+        body[data-modo="noche"] .card .back {
+            background: linear-gradient(135deg, #34495e, #2c3e50);
         }
 
         body[data-modo="noche"] .back-content {
-            background: linear-gradient(135deg, #2c3e50, #34495e);
+            background: rgba(44, 62, 80, 0.95);
         }
 
         body[data-modo="noche"] .proximamente {
-            background: #2980b9;
+            background: linear-gradient(135deg, #2c3e50, #34495e);
         }
 
         body[data-modo="noche"] .proxi {
-            background: linear-gradient(135deg, #8e44ad, #3498db, #2980b9);
+            background: linear-gradient(135deg, #3498db, #2980b9);
         }
 
         header {
@@ -55,25 +58,32 @@
         }
         
         @keyframes pulse {
-            0% { letter-spacing: 2px; }
-            50% { letter-spacing: 4px; }
-            100% { letter-spacing: 2px; }
+            0% { letter-spacing: 2px; opacity: 1; }
+            50% { letter-spacing: 4px; opacity: 0.9; }
+            100% { letter-spacing: 2px; opacity: 1; }
         }
 
         footer {
             background: #e99ca2;
-            padding: 10px;
+            padding: 15px;
             text-align: center;
             color: white;
             font-size: 14px;
-            margin-top: 40px;
+            margin-top: 50px;
             transition: all 0.5s ease;
         }
 
         h2 {
             text-align: center;
-            margin-top: 30px;
-            font-size: 26px;
+            margin-top: 40px;
+            margin-bottom: 30px;
+            font-size: 32px;
+            color: #d35a6d;
+            font-weight: 600;
+        }
+
+        body[data-modo="noche"] h2 {
+            color: #ecf0f1;
         }
         
         .corazones {
@@ -92,10 +102,9 @@
             left: calc(100vw * var(--pos));
             width: 20px;
             height: 20px;
-            background: pink;
+            background: rgba(233, 156, 162, 0.6);
             transform: rotate(45deg);
             animation: subir 6s linear infinite;
-            opacity: 0.7;
             border-radius: 5px;
         }
 
@@ -105,7 +114,7 @@
             position: absolute;
             width: 20px;
             height: 20px;
-            background: pink;
+            background: rgba(233, 156, 162, 0.6);
             border-radius: 50%;
         }
 
@@ -120,27 +129,34 @@
         @keyframes subir {
             0% {
                 transform: translateY(0) rotate(45deg);
+                opacity: 0.7;
             }
             100% {
                 transform: translateY(-120vh) rotate(45deg);
+                opacity: 0;
             }
         }
         
-        /* Estilos de las flipcards - Versión romántica */
+        /* Estilos de las flipcards - Versión elegante */
         .card {
-            overflow: visible;
-            width: 220px;
-            height: 300px;
-            border-radius: 15px;
+            width: 260px;
+            height: 340px;
+            perspective: 1500px;
         }
 
-        .content {
+        .flip-inner {
+            position: relative;
             width: 100%;
             height: 100%;
+            text-align: center;
+            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
             transform-style: preserve-3d;
-            transition: transform 500ms cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-            border-radius: 15px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .card:hover .flip-inner {
+            transform: rotateY(180deg);
         }
 
         .front, .back {
@@ -148,199 +164,216 @@
             width: 100%;
             height: 100%;
             backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-            border-radius: 15px;
+            border-radius: 20px;
             overflow: hidden;
         }
 
         .front {
-            transform: rotateY(180deg);
-            background: linear-gradient(135deg, #ffe3e3, #ffd6e8);
-            box-shadow: inset 0 0 30px rgba(255,255,255,0.5);
-        }
-
-        .back {
-            background: linear-gradient(135deg, #ffb6c1, #ffc0cb, #ffd1dc);
+            background: linear-gradient(135deg, #fff5f5, #ffe8f0);
             transform: rotateY(0deg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 20px;
-            box-shadow: inset 0 0 30px rgba(255,255,255,0.3);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        .card:hover .content {
-            transform: rotateY(180deg);
-        }
-
-        .front .front-content {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 15px;
-        }
-
-        .front-content .badge {
-            background: rgba(233, 156, 162, 0.9);
-            padding: 5px 12px;
-            border-radius: 20px;
-            backdrop-filter: blur(5px);
-            width: fit-content;
-            color: white;
-            font-weight: bold;
-            font-size: 14px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .description {
-            background: rgba(255,255,255,0.9);
-            padding: 12px;
-            border-radius: 12px;
-            backdrop-filter: blur(5px);
-            margin-bottom: 10px;
-        }
-
-        .title {
-            font-size: 16px;
-            font-weight: bold;
-            color: #e99ca2;
-            text-align: center;
-        }
-
-        .front .img {
-            position: absolute;
+        .front-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
             object-position: center;
+            transition: transform 0.3s ease;
         }
 
-        .back-content p {
+        .card:hover .front-image {
+            transform: scale(1.05);
+        }
+
+        .front-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            padding: 20px;
             color: white;
-            font-size: 18px;
-            font-weight: 600;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .month-badge {
+            display: inline-block;
+            background: #e99ca2;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .month-title {
+            font-size: 22px;
+            font-weight: bold;
             margin: 0;
-            line-height: 1.4;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
         }
 
-        /* Elementos decorativos para las tarjetas */
-        .heart-decoration {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            font-size: 24px;
-            opacity: 0.6;
-            color: #e99ca2;
-        }
-
-        /* Efecto de brillo en el borde */
-        .card::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, #ffd6e8, #ffb6c1, #ffd6e8);
-            border-radius: 17px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: -1;
-        }
-
-        .card:hover::before {
-            opacity: 1;
-        }
-
-        .proximamente {
-            position: relative;
-            border-radius: 15px;
-            width: 220px;
-            height: 300px;
-            background: linear-gradient(135deg, #ffb6c1, #ffc0cb);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-            transform: preserve-3d;
-            perspective: 2000px;
+        .back {
+            background: linear-gradient(135deg, #e99ca2, #d88a90);
+            transform: rotateY(180deg);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #000;
-            border: 3px solid rgba(255,255,255,0.8);
-            transition: all 0.5s ease;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        .proxi {
-            top: 0;
-            position: absolute;
-            background: linear-gradient(135deg, #e99ca2, #d88a90, #e99ca2);  
+        .back p {
+            color: white;
+            font-size: 20px;
+            font-weight: 500;
+            line-height: 1.5;
+            margin: 0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+            font-family: "Playfair Display", serif;
+        }
+
+        /* Tarjeta de Próximamente */
+        .proximamente {
+            width: 260px;
+            height: 340px;
+            perspective: 1500px;
+        }
+
+        .proxi-inner {
+            position: relative;
             width: 100%;
             height: 100%;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: all 0.5s;
-            transform-origin: 0;
-            box-shadow: 1px 1px 12px #000;
+            text-align: center;
+            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transform-style: preserve-3d;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .proximamente:hover .proxi-inner {
+            transform: rotateY(180deg);
+        }
+
+        .proxi-front, .proxi-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-direction: column;
         }
 
-        .proximamente:hover .proxi {
-            transition: all 0.5s;
-            transform: rotatey(-80deg);
+        .proxi-front {
+            background: linear-gradient(135deg, #ffd6e8, #ffc0cb);
+            transform: rotateY(0deg);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        .proximamente p, .proxi p {
-            font-size: 20px;
-            font-weight: bolder;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+        .proxi-front .emoji {
+            font-size: 64px;
+            margin-bottom: 20px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .proxi-front h3 {
+            font-size: 28px;
+            color: #e99ca2;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        .proxi-front p {
+            font-size: 16px;
+            color: #d35a6d;
+            margin: 0;
+        }
+
+        .proxi-back {
+            background: linear-gradient(135deg, #d88a90, #e99ca2);
+            transform: rotateY(180deg);
             color: white;
+            padding: 30px;
+        }
+
+        .proxi-back p {
+            font-size: 22px;
+            font-weight: bold;
+            margin: 0;
+            line-height: 1.4;
+            text-align: center;
+        }
+
+        .proxi-back .heart-decoration {
+            font-size: 40px;
+            margin-top: 20px;
+            animation: pulse 1.5s infinite;
         }
 
         .container {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px; 
+            gap: 30px; 
             justify-content: center;
-            padding: 20px;
+            padding: 20px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
         
         .contador {
             text-align: center;
-            margin: 40px 0;
+            margin: 50px 0 30px;
             font-size: 24px;
             color: #d35a6d;
             font-weight: bold;
         }
-        
-        body[data-modo="noche"] .contador {
-            color: #ecf0f1;
+
+        .contador h2 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .contador span {
+            font-size: 42px;
+            color: #e99ca2;
+            display: inline-block;
+            margin: 0 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        body[data-modo="noche"] .contador span {
+            color: #3498db;
         }
         
         #modo-btn {
             display: block;
             margin: 20px auto;
-            padding: 10px 20px;
+            padding: 12px 28px;
             background-color: #e99ca2;
             color: white;
             border: none;
-            border-radius: 25px;
+            border-radius: 40px;
             font-size: 16px;
             cursor: pointer;
             transition: all 0.3s ease;
             font-family: "Playfair Display", serif;
-            font-weight: bold;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
         
         #modo-btn:hover {
             background-color: #d88a90;
             transform: scale(1.05);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
         }
 
         body[data-modo="noche"] #modo-btn {
@@ -350,196 +383,187 @@
         body[data-modo="noche"] #modo-btn:hover {
             background-color: #2980b9;
         }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                gap: 20px;
+                padding: 15px;
+            }
+            .card, .proximamente {
+                width: 220px;
+                height: 300px;
+            }
+            .back p, .proxi-back p {
+                font-size: 16px;
+            }
+            .month-title {
+                font-size: 18px;
+            }
+            .contador h2 {
+                font-size: 22px;
+            }
+            .contador span {
+                font-size: 32px;
+            }
+        }
     </style>
 </head>
 <body>
     <header>
         Cris y Lore por siempre ❤️
     </header>
-    <h2>Nuestros Momentos</h2>
-    <button id="modo-btn">Cambiar a Modo Noche</button>
+    <h2>✨ Nuestros Momentos ✨</h2>
+    <button id="modo-btn">🌙 Cambiar a Modo Noche</button>
     <div class="corazones"></div>
     <div class="container">
         <!-- Primer mes -->
         <div class="card">
-            <div class="content">
-                <div class="front" style="background-image: url('M1.jpeg'); background-size: cover; background-position: center;">
-                    <div class="front-content">
-                        <div class="badge">❤️ Mes 1 ❤️</div>
-                        <div class="description">
-                            <div class="title">
-                                <strong>Primer mes</strong>
-                            </div>
-                        </div>
+            <div class="flip-inner">
+                <div class="front">
+                    <img class="front-image" src="M1.jpeg" alt="Primer mes" onerror="this.style.display='none'">
+                    <div class="front-overlay">
+                        <div class="month-badge">❤️ Mes 1 ❤️</div>
+                        <h3 class="month-title">Primer mes</h3>
                     </div>
-                    <div class="heart-decoration">❤️</div>
                 </div>
                 <div class="back">
-                    <div class="back-content">
-                        <p>Entraste en mi corazón de la forma más bonita que existe</p>
-                    </div>
+                    <p>✨ Entraste en mi corazón de la forma más bonita que existe ✨</p>
                 </div>
             </div>
         </div>
 
         <!-- Segundo mes -->
         <div class="card">
-            <div class="content">
-                <div class="front" style="background-image: url('M2.jpeg'); background-size: cover; background-position: center;">
-                    <div class="front-content">
-                        <div class="badge">❤️ Mes 2 ❤️</div>
-                        <div class="description">
-                            <div class="title">
-                                <strong>Segundo mes</strong>
-                            </div>
-                        </div>
+            <div class="flip-inner">
+                <div class="front">
+                    <img class="front-image" src="M2.jpeg" alt="Segundo mes" onerror="this.style.display='none'">
+                    <div class="front-overlay">
+                        <div class="month-badge">❤️ Mes 2 ❤️</div>
+                        <h3 class="month-title">Segundo mes</h3>
                     </div>
-                    <div class="heart-decoration">❤️</div>
                 </div>
                 <div class="back">
-                    <div class="back-content">
-                        <p>Me enamoré totalmente de ti mi amor</p>
-                    </div>
+                    <p>💕 Me enamoré totalmente de ti mi amor 💕</p>
                 </div>
             </div>
         </div>
 
         <!-- Tercer mes -->
         <div class="card">
-            <div class="content">
-                <div class="front" style="background-image: url('M3.jpeg'); background-size: cover; background-position: center;">
-                    <div class="front-content">
-                        <div class="badge">❤️ Mes 3 ❤️</div>
-                        <div class="description">
-                            <div class="title">
-                                <strong>Tercer mes</strong>
-                            </div>
-                        </div>
+            <div class="flip-inner">
+                <div class="front">
+                    <img class="front-image" src="M3.jpeg" alt="Tercer mes" onerror="this.style.display='none'">
+                    <div class="front-overlay">
+                        <div class="month-badge">❤️ Mes 3 ❤️</div>
+                        <h3 class="month-title">Tercer mes</h3>
                     </div>
-                    <div class="heart-decoration">❤️</div>
                 </div>
                 <div class="back">
-                    <div class="back-content">
-                        <p>Eres tú con quien definitivamente quiero pasar el resto de mis dias</p>
-                    </div>
+                    <p>🌟 Eres tú con quien definitivamente quiero pasar el resto de mis días 🌟</p>
                 </div>
             </div>
         </div>
 
         <!-- Cuarto mes -->
         <div class="card">
-            <div class="content">
-                <div class="front" style="background-image: url('M4.jpeg'); background-size: cover; background-position: center;">
-                    <div class="front-content">
-                        <div class="badge">❤️ Mes 4 ❤️</div>
-                        <div class="description">
-                            <div class="title">
-                                <strong>Cuarto mes</strong>
-                            </div>
-                        </div>
+            <div class="flip-inner">
+                <div class="front">
+                    <img class="front-image" src="M4.jpeg" alt="Cuarto mes" onerror="this.style.display='none'">
+                    <div class="front-overlay">
+                        <div class="month-badge">❤️ Mes 4 ❤️</div>
+                        <h3 class="month-title">Cuarto mes</h3>
                     </div>
-                    <div class="heart-decoration">❤️</div>
                 </div>
                 <div class="back">
-                    <div class="back-content">
-                        <p>¿Navidad juntos? y las que nos faltan</p>
-                    </div>
+                    <p>🎄 ¿Navidad juntos? y las que nos faltan 🎄</p>
                 </div>
             </div>
         </div>
 
         <!-- Quinto mes -->
         <div class="card">
-            <div class="content">
-                <div class="front" style="background-image: url('M5.jpeg'); background-size: cover; background-position: center;">
-                    <div class="front-content">
-                        <div class="badge">❤️ Mes 5 ❤️</div>
-                        <div class="description">
-                            <div class="title">
-                                <strong>Quinto mes</strong>
-                            </div>
-                        </div>
+            <div class="flip-inner">
+                <div class="front">
+                    <img class="front-image" src="M5.jpeg" alt="Quinto mes" onerror="this.style.display='none'">
+                    <div class="front-overlay">
+                        <div class="month-badge">❤️ Mes 5 ❤️</div>
+                        <h3 class="month-title">Quinto mes</h3>
                     </div>
-                    <div class="heart-decoration">❤️</div>
                 </div>
                 <div class="back">
-                    <div class="back-content">
-                        <p>Me encanta como eres conmigo, corazón</p>
-                    </div>
+                    <p>💖 Me encanta como eres conmigo, corazón 💖</p>
                 </div>
             </div>
         </div>
 
         <!-- Sexto mes -->
         <div class="card">
-            <div class="content">
-                <div class="front" style="background-image: url('M6.jpeg'); background-size: cover; background-position: center;">
-                    <div class="front-content">
-                        <div class="badge">❤️ Mes 6 ❤️</div>
-                        <div class="description">
-                            <div class="title">
-                                <strong>Sexto mes</strong>
-                            </div>
-                        </div>
+            <div class="flip-inner">
+                <div class="front">
+                    <img class="front-image" src="M6.jpeg" alt="Sexto mes" onerror="this.style.display='none'">
+                    <div class="front-overlay">
+                        <div class="month-badge">❤️ Mes 6 ❤️</div>
+                        <h3 class="month-title">Sexto mes</h3>
                     </div>
-                    <div class="heart-decoration">❤️</div>
                 </div>
                 <div class="back">
-                    <div class="back-content">
-                        <p>Aun no puedo creer que llevamos tanto tiempo, ¡ME ENCANTA!</p>
-                    </div>
+                    <p>😊 Aún no puedo creer que llevamos tanto tiempo, ¡ME ENCANTA! 😊</p>
                 </div>
             </div>
         </div>
 
         <!-- Séptimo mes -->
         <div class="card">
-            <div class="content">
-                <div class="front" style="background-image: url('M7.jpeg'); background-size: cover; background-position: center;">
-                    <div class="front-content">
-                        <div class="badge">❤️ Mes 7 ❤️</div>
-                        <div class="description">
-                            <div class="title">
-                                <strong>Séptimo mes</strong>
-                            </div>
-                        </div>
+            <div class="flip-inner">
+                <div class="front">
+                    <img class="front-image" src="M7.jpeg" alt="Séptimo mes" onerror="this.style.display='none'">
+                    <div class="front-overlay">
+                        <div class="month-badge">❤️ Mes 7 ❤️</div>
+                        <h3 class="month-title">Séptimo mes</h3>
                     </div>
-                    <div class="heart-decoration">❤️</div>
                 </div>
                 <div class="back">
-                    <div class="back-content">
-                        <p>Mi niña, anhelo estar siempre a tu lado</p>
-                    </div>
+                    <p>🌹 Mi niña, anhelo estar siempre a tu lado 🌹</p>
                 </div>
             </div>
         </div>
 
+        <!-- Próximamente -->
         <div class="proximamente">
-            <p>Venga, vamos por toda una vida juntos</p>
-            <div class="proxi">
-                <p>✨ Próximamente ✨</p>
+            <div class="proxi-inner">
+                <div class="proxi-front">
+                    <div class="emoji">✨💑✨</div>
+                    <h3>Próximamente</h3>
+                    <p>Más momentos juntos</p>
+                </div>
+                <div class="proxi-back">
+                    <p>💫 Venga, vamos por toda una vida juntos 💫</p>
+                    <div class="heart-decoration">❤️</div>
+                </div>
             </div>
         </div>
     </div>
     <div class="contador">
-    <h2>Hemos estado juntos por <span id="dias"></span> días</h2>
+        <h2>📅 Hemos estado juntos por <span id="dias"></span> días 📅</h2>
     </div>
     <footer>
-        Hecho con cariño para ti
+        Hecho con cariño para ti 💕
     </footer>
     
     <script>
-        document.getElementById("modo-btn").onclick = function() {
+        const btn = document.getElementById("modo-btn");
+        
+        btn.onclick = function() {
             const nuevoModo = document.body.dataset.modo === "noche" ? "dia" : "noche";
             document.body.dataset.modo = nuevoModo;            
-            this.textContent = nuevoModo === "noche" ? "Cambiar a Modo Día" : "Cambiar a Modo Noche";
+            this.innerHTML = nuevoModo === "noche" ? "☀️ Cambiar a Modo Día" : "🌙 Cambiar a Modo Noche";
         };
 
         const inicio = new Date("2025-08-24");
         const hoy = new Date();
 
-        const diferencia =
-        Math.floor((hoy - inicio) / (1000 * 60 * 60 * 24));
+        const diferencia = Math.floor((hoy - inicio) / (1000 * 60 * 60 * 24));
 
         document.getElementById("dias").textContent = diferencia;
 
