@@ -25,17 +25,13 @@
             background: #1a252f;
         }
 
-        body[data-modo="noche"] .card {
-            background: transparent;
-        }
-
-        body[data-modo="noche"] .front, 
-        body[data-modo="noche"] .back {
-            background-color: #2c3e50;
+        body[data-modo="noche"] .card .front,
+        body[data-modo="noche"] .card .back {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
         }
 
         body[data-modo="noche"] .back-content {
-            background-color: #2c3e50;
+            background: linear-gradient(135deg, #2c3e50, #34495e);
         }
 
         body[data-modo="noche"] .proximamente {
@@ -130,126 +126,89 @@
             }
         }
         
-        /* Estilos de las flipcards */
+        /* Estilos de las flipcards - Versión romántica */
         .card {
             overflow: visible;
             width: 220px;
             height: 300px;
+            border-radius: 15px;
         }
 
         .content {
             width: 100%;
             height: 100%;
             transform-style: preserve-3d;
-            transition: transform 300ms;
-            box-shadow: 0px 0px 10px 1px #000000ee;
-            border-radius: 5px;
+            transition: transform 500ms cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            border-radius: 15px;
         }
 
         .front, .back {
-            background-color: #151515;
             position: absolute;
             width: 100%;
             height: 100%;
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
-            border-radius: 5px;
+            border-radius: 15px;
             overflow: hidden;
+        }
+
+        .front {
+            transform: rotateY(180deg);
+            background: linear-gradient(135deg, #ffe3e3, #ffd6e8);
+            box-shadow: inset 0 0 30px rgba(255,255,255,0.5);
         }
 
         .back {
-            width: 100%;
-            height: 100%;
-            justify-content: center;
+            background: linear-gradient(135deg, #ffb6c1, #ffc0cb, #ffd1dc);
+            transform: rotateY(0deg);
             display: flex;
             align-items: center;
-            overflow: hidden;
-        }
-
-        .back::before {
-            position: absolute;
-            content: ' ';
-            display: block;
-            width: 160px;
-            height: 160%;
-            background: linear-gradient(90deg, transparent, #ff9966, #ff9966, #ff9966, #ff9966, transparent);
-            animation: rotation_481 5000ms infinite linear;
-        }
-
-        .back-content {
-            position: absolute;
-            width: 99%;
-            height: 99%;
-            background-color: #151515;
-            border-radius: 5px;
-            color: white;
-            display: flex;
-            flex-direction: column;
             justify-content: center;
-            align-items: center;
-            gap: 30px;
+            text-align: center;
+            padding: 20px;
+            box-shadow: inset 0 0 30px rgba(255,255,255,0.3);
         }
 
         .card:hover .content {
             transform: rotateY(180deg);
         }
 
-        @keyframes rotation_481 {
-            0% {
-                transform: rotateZ(0deg);
-            }
-            100% {
-                transform: rotateZ(360deg);
-            }
-        }
-
-        .front {
-            transform: rotateY(180deg);
-            color: white;
-        }
-
         .front .front-content {
             position: absolute;
             width: 100%;
             height: 100%;
-            padding: 10px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            padding: 15px;
         }
 
         .front-content .badge {
-            background-color: #00000055;
-            padding: 2px 10px;
-            border-radius: 10px;
-            backdrop-filter: blur(2px);
+            background: rgba(233, 156, 162, 0.9);
+            padding: 5px 12px;
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
             width: fit-content;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         .description {
-            box-shadow: 0px 0px 10px 5px #00000088;
-            width: 100%;
-            padding: 10px;
-            background-color: #00000099;
+            background: rgba(255,255,255,0.9);
+            padding: 12px;
+            border-radius: 12px;
             backdrop-filter: blur(5px);
-            border-radius: 5px;
+            margin-bottom: 10px;
         }
 
         .title {
-            font-size: 11px;
-            max-width: 100%;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .title p {
-            width: 50%;
-        }
-
-        .card-footer {
-            color: #ffffff88;
-            margin-top: 5px;
-            font-size: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #e99ca2;
+            text-align: center;
         }
 
         .front .img {
@@ -260,53 +219,51 @@
             object-position: center;
         }
 
-        .circle {
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            background-color: #ffbb66;
-            position: relative;
-            filter: blur(15px);
-            animation: floating 2600ms infinite linear;
+        .back-content p {
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin: 0;
+            line-height: 1.4;
         }
 
-        #bottom {
-            background-color: #ff8866;
-            left: 50px;
-            top: 0px;
-            width: 150px;
-            height: 150px;
-            animation-delay: -800ms;
+        /* Elementos decorativos para las tarjetas */
+        .heart-decoration {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 24px;
+            opacity: 0.6;
+            color: #e99ca2;
         }
 
-        #right {
-            background-color: #ff2233;
-            left: 160px;
-            top: -80px;
-            width: 30px;
-            height: 30px;
-            animation-delay: -1800ms;
+        /* Efecto de brillo en el borde */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ffd6e8, #ffb6c1, #ffd6e8);
+            border-radius: 17px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
         }
 
-        @keyframes floating {
-            0% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(10px);
-            }
-            100% {
-                transform: translateY(0px);
-            }
+        .card:hover::before {
+            opacity: 1;
         }
 
         .proximamente {
             position: relative;
-            border-radius: 10px;
+            border-radius: 15px;
             width: 220px;
             height: 300px;
-            background: pink;
-            box-shadow: 1px 1px 12px #000;
+            background: linear-gradient(135deg, #ffb6c1, #ffc0cb);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
             transform: preserve-3d;
             perspective: 2000px;
             display: flex;
@@ -320,10 +277,10 @@
         .proxi {
             top: 0;
             position: absolute;
-            background: linear-gradient(135deg, #e8a8d8, #e58bb2, #ff0090);  
+            background: linear-gradient(135deg, #e99ca2, #d88a90, #e99ca2);  
             width: 100%;
             height: 100%;
-            border-radius: 10px;
+            border-radius: 15px;
             cursor: pointer;
             transition: all 0.5s;
             transform-origin: 0;
@@ -338,10 +295,11 @@
             transform: rotatey(-80deg);
         }
 
-        .container p {
+        .proximamente p, .proxi p {
             font-size: 20px;
             font-weight: bolder;
             text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+            color: white;
         }
 
         .container {
@@ -360,6 +318,10 @@
             font-weight: bold;
         }
         
+        body[data-modo="noche"] .contador {
+            color: #ecf0f1;
+        }
+        
         #modo-btn {
             display: block;
             margin: 20px auto;
@@ -367,14 +329,18 @@
             background-color: #e99ca2;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 25px;
             font-size: 16px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s ease;
+            font-family: "Playfair Display", serif;
+            font-weight: bold;
         }
         
         #modo-btn:hover {
             background-color: #d88a90;
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
         body[data-modo="noche"] #modo-btn {
@@ -399,15 +365,14 @@
             <div class="content">
                 <div class="front" style="background-image: url('M1.jpeg'); background-size: cover; background-position: center;">
                     <div class="front-content">
-                        <div class="badge">Mes 1</div>
+                        <div class="badge">❤️ Mes 1 ❤️</div>
                         <div class="description">
                             <div class="title">
-                                <p class="title">
-                                    <strong>Primer mes</strong>
-                                </p>
+                                <strong>Primer mes</strong>
                             </div>
                         </div>
                     </div>
+                    <div class="heart-decoration">❤️</div>
                 </div>
                 <div class="back">
                     <div class="back-content">
@@ -422,15 +387,14 @@
             <div class="content">
                 <div class="front" style="background-image: url('M2.jpeg'); background-size: cover; background-position: center;">
                     <div class="front-content">
-                        <div class="badge">Mes 2</div>
+                        <div class="badge">❤️ Mes 2 ❤️</div>
                         <div class="description">
                             <div class="title">
-                                <p class="title">
-                                    <strong>Segundo mes</strong>
-                                </p>
+                                <strong>Segundo mes</strong>
                             </div>
                         </div>
                     </div>
+                    <div class="heart-decoration">❤️</div>
                 </div>
                 <div class="back">
                     <div class="back-content">
@@ -445,15 +409,14 @@
             <div class="content">
                 <div class="front" style="background-image: url('M3.jpeg'); background-size: cover; background-position: center;">
                     <div class="front-content">
-                        <div class="badge">Mes 3</div>
+                        <div class="badge">❤️ Mes 3 ❤️</div>
                         <div class="description">
                             <div class="title">
-                                <p class="title">
-                                    <strong>Tercer mes</strong>
-                                </p>
+                                <strong>Tercer mes</strong>
                             </div>
                         </div>
                     </div>
+                    <div class="heart-decoration">❤️</div>
                 </div>
                 <div class="back">
                     <div class="back-content">
@@ -468,15 +431,14 @@
             <div class="content">
                 <div class="front" style="background-image: url('M4.jpeg'); background-size: cover; background-position: center;">
                     <div class="front-content">
-                        <div class="badge">Mes 4</div>
+                        <div class="badge">❤️ Mes 4 ❤️</div>
                         <div class="description">
                             <div class="title">
-                                <p class="title">
-                                    <strong>Cuarto mes</strong>
-                                </p>
+                                <strong>Cuarto mes</strong>
                             </div>
                         </div>
                     </div>
+                    <div class="heart-decoration">❤️</div>
                 </div>
                 <div class="back">
                     <div class="back-content">
@@ -491,15 +453,14 @@
             <div class="content">
                 <div class="front" style="background-image: url('M5.jpeg'); background-size: cover; background-position: center;">
                     <div class="front-content">
-                        <div class="badge">Mes 5</div>
+                        <div class="badge">❤️ Mes 5 ❤️</div>
                         <div class="description">
                             <div class="title">
-                                <p class="title">
-                                    <strong>Quinto mes</strong>
-                                </p>
+                                <strong>Quinto mes</strong>
                             </div>
                         </div>
                     </div>
+                    <div class="heart-decoration">❤️</div>
                 </div>
                 <div class="back">
                     <div class="back-content">
@@ -514,15 +475,14 @@
             <div class="content">
                 <div class="front" style="background-image: url('M6.jpeg'); background-size: cover; background-position: center;">
                     <div class="front-content">
-                        <div class="badge">Mes 6</div>
+                        <div class="badge">❤️ Mes 6 ❤️</div>
                         <div class="description">
                             <div class="title">
-                                <p class="title">
-                                    <strong>Sexto mes</strong>
-                                </p>
+                                <strong>Sexto mes</strong>
                             </div>
                         </div>
                     </div>
+                    <div class="heart-decoration">❤️</div>
                 </div>
                 <div class="back">
                     <div class="back-content">
@@ -537,15 +497,14 @@
             <div class="content">
                 <div class="front" style="background-image: url('M7.jpeg'); background-size: cover; background-position: center;">
                     <div class="front-content">
-                        <div class="badge">Mes 7</div>
+                        <div class="badge">❤️ Mes 7 ❤️</div>
                         <div class="description">
                             <div class="title">
-                                <p class="title">
-                                    <strong>Séptimo mes</strong>
-                                </p>
+                                <strong>Séptimo mes</strong>
                             </div>
                         </div>
                     </div>
+                    <div class="heart-decoration">❤️</div>
                 </div>
                 <div class="back">
                     <div class="back-content">
@@ -558,7 +517,7 @@
         <div class="proximamente">
             <p>Venga, vamos por toda una vida juntos</p>
             <div class="proxi">
-                <p>Próximamente</p>
+                <p>✨ Próximamente ✨</p>
             </div>
         </div>
     </div>
