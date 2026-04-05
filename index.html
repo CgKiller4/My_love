@@ -25,9 +25,17 @@
             background: #1a252f;
         }
 
-        body[data-modo="noche"] .mes {
-            background: linear-gradient(135deg, #3498db, #8e44ad, #3498db);
-            color: #ecf0f1;
+        body[data-modo="noche"] .card {
+            background: transparent;
+        }
+
+        body[data-modo="noche"] .front, 
+        body[data-modo="noche"] .back {
+            background-color: #2c3e50;
+        }
+
+        body[data-modo="noche"] .back-content {
+            background-color: #2c3e50;
         }
 
         body[data-modo="noche"] .proximamente {
@@ -71,94 +79,225 @@
             margin-top: 30px;
             font-size: 26px;
         }
-        .corazones {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    top: 0;
-    left: 0;
-    z-index: -1;
-}
-
-.corazones span {
-    position: absolute;
-    bottom: -50px;
-    left: calc(100vw * var(--pos));
-    width: 20px;
-    height: 20px;
-    background: pink;
-    transform: rotate(45deg);
-    animation: subir 6s linear infinite;
-    opacity: 0.7;
-    border-radius: 5px;
-}
-
-.corazones span::before,
-.corazones span::after {
-    content: "";
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    background: pink;
-    border-radius: 50%;
-}
-
-.corazones span::before {
-    top: -10px;
-}
-
-.corazones span::after {
-    left: -10px;
-}
-
-@keyframes subir {
-    0% {
-        transform: translateY(0) rotate(45deg);
-    }
-    100% {
-        transform: translateY(-120vh) rotate(45deg);
-    }
-}
-
         
-        .mes {
-            position: relative;
-            border-radius: 20px;
-            width: 220px;
-            height: 300px;
-            background: linear-gradient(135deg, #ffe3e3, #ffd6e8, #ffeaf6);
-            box-shadow: 1px 1px 12px #000;
-            transform: preserve-3d;
-            perspective: 2000px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #000;
-            border: 3px solid rgba(255,255,255,0.8);
-            transition: all 0.5s ease;
-        }
-
-        .cover {
-            top: 0;
-            position: absolute;
-            background-color: lightgray;
-            color: white;
+        .corazones {
+            position: fixed;
             width: 100%;
             height: 100%;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.5s;
-            transform-origin: 0;
-            box-shadow: 1px 1px 12px #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+            z-index: -1;
         }
 
-        .mes:hover .cover {
-            transition: all 0.5s;
-            transform: rotatey(-80deg);
+        .corazones span {
+            position: absolute;
+            bottom: -50px;
+            left: calc(100vw * var(--pos));
+            width: 20px;
+            height: 20px;
+            background: pink;
+            transform: rotate(45deg);
+            animation: subir 6s linear infinite;
+            opacity: 0.7;
+            border-radius: 5px;
+        }
+
+        .corazones span::before,
+        .corazones span::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: pink;
+            border-radius: 50%;
+        }
+
+        .corazones span::before {
+            top: -10px;
+        }
+
+        .corazones span::after {
+            left: -10px;
+        }
+
+        @keyframes subir {
+            0% {
+                transform: translateY(0) rotate(45deg);
+            }
+            100% {
+                transform: translateY(-120vh) rotate(45deg);
+            }
+        }
+        
+        /* Estilos de las flipcards */
+        .card {
+            overflow: visible;
+            width: 220px;
+            height: 300px;
+        }
+
+        .content {
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 300ms;
+            box-shadow: 0px 0px 10px 1px #000000ee;
+            border-radius: 5px;
+        }
+
+        .front, .back {
+            background-color: #151515;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .back {
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .back::before {
+            position: absolute;
+            content: ' ';
+            display: block;
+            width: 160px;
+            height: 160%;
+            background: linear-gradient(90deg, transparent, #ff9966, #ff9966, #ff9966, #ff9966, transparent);
+            animation: rotation_481 5000ms infinite linear;
+        }
+
+        .back-content {
+            position: absolute;
+            width: 99%;
+            height: 99%;
+            background-color: #151515;
+            border-radius: 5px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .card:hover .content {
+            transform: rotateY(180deg);
+        }
+
+        @keyframes rotation_481 {
+            0% {
+                transform: rotateZ(0deg);
+            }
+            100% {
+                transform: rotateZ(360deg);
+            }
+        }
+
+        .front {
+            transform: rotateY(180deg);
+            color: white;
+        }
+
+        .front .front-content {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .front-content .badge {
+            background-color: #00000055;
+            padding: 2px 10px;
+            border-radius: 10px;
+            backdrop-filter: blur(2px);
+            width: fit-content;
+        }
+
+        .description {
+            box-shadow: 0px 0px 10px 5px #00000088;
+            width: 100%;
+            padding: 10px;
+            background-color: #00000099;
+            backdrop-filter: blur(5px);
+            border-radius: 5px;
+        }
+
+        .title {
+            font-size: 11px;
+            max-width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .title p {
+            width: 50%;
+        }
+
+        .card-footer {
+            color: #ffffff88;
+            margin-top: 5px;
+            font-size: 8px;
+        }
+
+        .front .img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .circle {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background-color: #ffbb66;
+            position: relative;
+            filter: blur(15px);
+            animation: floating 2600ms infinite linear;
+        }
+
+        #bottom {
+            background-color: #ff8866;
+            left: 50px;
+            top: 0px;
+            width: 150px;
+            height: 150px;
+            animation-delay: -800ms;
+        }
+
+        #right {
+            background-color: #ff2233;
+            left: 160px;
+            top: -80px;
+            width: 30px;
+            height: 30px;
+            animation-delay: -1800ms;
+        }
+
+        @keyframes floating {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(10px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
         }
 
         .proximamente {
@@ -199,7 +338,7 @@
             transform: rotatey(-80deg);
         }
 
-        p {
+        .container p {
             font-size: 20px;
             font-weight: bolder;
             text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
@@ -212,6 +351,7 @@
             justify-content: center;
             padding: 20px;
         }
+        
         .contador {
             text-align: center;
             margin: 40px 0;
@@ -254,72 +394,164 @@
     <button id="modo-btn">Cambiar a Modo Noche</button>
     <div class="corazones"></div>
     <div class="container">
-        <div class="mes">
-            <p>Entraste en mi corazón de la forma más bonita que existe</p>
-            <div class="cover"
-                style="background-image: url('M1.jpeg');
-                       background-size: cover;
-                       background-position: center;">
-                <p>Primer mes</p>
+        <!-- Primer mes -->
+        <div class="card">
+            <div class="content">
+                <div class="front" style="background-image: url('M1.jpeg'); background-size: cover; background-position: center;">
+                    <div class="front-content">
+                        <div class="badge">Mes 1</div>
+                        <div class="description">
+                            <div class="title">
+                                <p class="title">
+                                    <strong>Primer mes</strong>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="back">
+                    <div class="back-content">
+                        <p>Entraste en mi corazón de la forma más bonita que existe</p>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="mes">
-            <p>Me enamoré totalmente de ti mi amor</p>
-            <div class="cover"
-                style="background-image: url('M2.jpeg');
-                       background-size: cover;
-                       background-position: center;">
-                <p>Segundo mes</p>
+        <!-- Segundo mes -->
+        <div class="card">
+            <div class="content">
+                <div class="front" style="background-image: url('M2.jpeg'); background-size: cover; background-position: center;">
+                    <div class="front-content">
+                        <div class="badge">Mes 2</div>
+                        <div class="description">
+                            <div class="title">
+                                <p class="title">
+                                    <strong>Segundo mes</strong>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="back">
+                    <div class="back-content">
+                        <p>Me enamoré totalmente de ti mi amor</p>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="mes">
-            <p>Eres tú con quien definitivamente quiero pasar el resto de mis dias</p>
-            <div class="cover"
-                style="background-image: url('M3.jpeg');
-                       background-size: cover;
-                       background-position: center;">
-                <p>Tercer mes</p>
+        <!-- Tercer mes -->
+        <div class="card">
+            <div class="content">
+                <div class="front" style="background-image: url('M3.jpeg'); background-size: cover; background-position: center;">
+                    <div class="front-content">
+                        <div class="badge">Mes 3</div>
+                        <div class="description">
+                            <div class="title">
+                                <p class="title">
+                                    <strong>Tercer mes</strong>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="back">
+                    <div class="back-content">
+                        <p>Eres tú con quien definitivamente quiero pasar el resto de mis dias</p>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="mes">
-            <p>¿Navidad juntos? y las que nos faltan</p>
-            <div class="cover"
-                style="background-image: url('M4.jpeg');
-                       background-size: cover;
-                       background-position: center;">
-                <p>Cuarto mes</p>
+        <!-- Cuarto mes -->
+        <div class="card">
+            <div class="content">
+                <div class="front" style="background-image: url('M4.jpeg'); background-size: cover; background-position: center;">
+                    <div class="front-content">
+                        <div class="badge">Mes 4</div>
+                        <div class="description">
+                            <div class="title">
+                                <p class="title">
+                                    <strong>Cuarto mes</strong>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="back">
+                    <div class="back-content">
+                        <p>¿Navidad juntos? y las que nos faltan</p>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="mes">
-            <p>Me encanta como eres conmigo, corazón</p>
-            <div class="cover"
-                style="background-image: url('M5.jpeg');
-                       background-size: cover;
-                       background-position: center;">
-                <p>Quinto mes</p>
+        <!-- Quinto mes -->
+        <div class="card">
+            <div class="content">
+                <div class="front" style="background-image: url('M5.jpeg'); background-size: cover; background-position: center;">
+                    <div class="front-content">
+                        <div class="badge">Mes 5</div>
+                        <div class="description">
+                            <div class="title">
+                                <p class="title">
+                                    <strong>Quinto mes</strong>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="back">
+                    <div class="back-content">
+                        <p>Me encanta como eres conmigo, corazón</p>
+                    </div>
+                </div>
             </div>
         </div>
 
-         <div class="mes">
-            <p>Aun no puedo creer que llevamos tanto tiempo, ¡ME ENCANTA!</p>
-            <div class="cover"
-                style="background-image: url('M6.jpeg');
-                       background-size: cover;
-                       background-position: center;">
-                <p>Sexto mes</p>
+        <!-- Sexto mes -->
+        <div class="card">
+            <div class="content">
+                <div class="front" style="background-image: url('M6.jpeg'); background-size: cover; background-position: center;">
+                    <div class="front-content">
+                        <div class="badge">Mes 6</div>
+                        <div class="description">
+                            <div class="title">
+                                <p class="title">
+                                    <strong>Sexto mes</strong>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="back">
+                    <div class="back-content">
+                        <p>Aun no puedo creer que llevamos tanto tiempo, ¡ME ENCANTA!</p>
+                    </div>
+                </div>
             </div>
         </div>
-                 <div class="mes">
-            <p>Mi niña, anhelo estar siempre a tu lado </p>
-            <div class="cover"
-                style="background-image: url('M7.jpeg');
-                       background-size: cover;
-                       background-position: center;">
-                <p>Séptimo mes</p>
+
+        <!-- Séptimo mes -->
+        <div class="card">
+            <div class="content">
+                <div class="front" style="background-image: url('M7.jpeg'); background-size: cover; background-position: center;">
+                    <div class="front-content">
+                        <div class="badge">Mes 7</div>
+                        <div class="description">
+                            <div class="title">
+                                <p class="title">
+                                    <strong>Séptimo mes</strong>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="back">
+                    <div class="back-content">
+                        <p>Mi niña, anhelo estar siempre a tu lado</p>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -353,17 +585,12 @@
         document.getElementById("dias").textContent = diferencia;
 
         for (let i = 0; i < 20; i++) {
-        const h = document.createElement("span");
-        h.style.setProperty("--pos", Math.random());
-        h.style.animationDelay = (Math.random() * 5) + "s";
-        h.style.animationDuration = (4 + Math.random() * 4) + "s";
-        document.querySelector(".corazones").appendChild(h);
-}
+            const h = document.createElement("span");
+            h.style.setProperty("--pos", Math.random());
+            h.style.animationDelay = (Math.random() * 5) + "s";
+            h.style.animationDuration = (4 + Math.random() * 4) + "s";
+            document.querySelector(".corazones").appendChild(h);
+        }
     </script>
 </body>
-
 </html>
-
-
-
-
