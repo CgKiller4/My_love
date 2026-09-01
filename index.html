@@ -1,638 +1,843 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para mi preciosa</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Cris y Lore</title>
     <style>
+        :root {
+            --surface: #ffffff;
+            --ink: #2d2325;
+            --muted: #756468;
+            --rose: #d94f70;
+            --rose-dark: #a83355;
+            --coral: #f28f79;
+            --mint: #8fc7b5;
+            --line: rgba(45, 35, 37, 0.12);
+            --shadow: 0 22px 60px rgba(90, 42, 53, 0.18);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
-            font-family: "Playfair Display", serif;
-            background: linear-gradient(to bottom, #f7d1d1, #fff, #f7d1d1);
-            color: #333;
-            transition: all 0.5s ease;
+            min-height: 100vh;
+            font-family: Georgia, "Times New Roman", serif;
+            color: var(--ink);
+            background:
+                radial-gradient(circle at 12% 8%, rgba(242, 143, 121, 0.28), transparent 28rem),
+                radial-gradient(circle at 88% 10%, rgba(143, 199, 181, 0.25), transparent 26rem),
+                linear-gradient(180deg, #fff8f4 0%, #fff 48%, #fff1f3 100%);
         }
 
-        /* Estilos para modo noche */
-        body[data-modo="noche"] {
-            background: linear-gradient(to bottom, #2c3e50, #34495e, #2c3e50);
-            color: #ecf0f1;
+        body[data-theme="night"] {
+            --surface: #232024;
+            --ink: #fff7f1;
+            --muted: #d8c8c1;
+            --rose: #ff7b9a;
+            --rose-dark: #ffadc0;
+            --coral: #ffad8d;
+            --mint: #9bd9cc;
+            --line: rgba(255, 255, 255, 0.16);
+            --shadow: 0 22px 70px rgba(0, 0, 0, 0.38);
+            background:
+                radial-gradient(circle at 12% 8%, rgba(255, 123, 154, 0.18), transparent 28rem),
+                radial-gradient(circle at 88% 10%, rgba(155, 217, 204, 0.14), transparent 26rem),
+                linear-gradient(180deg, #171719 0%, #211d23 55%, #151416 100%);
         }
 
-        body[data-modo="noche"] header,
-        body[data-modo="noche"] footer {
-            background: #1a252f;
+        button {
+            font: inherit;
         }
 
-        body[data-modo="noche"] .card .front {
-            background: linear-gradient(135deg, #2c3e50, #34495e);
+        .page {
+            width: min(1120px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 28px 0 36px;
         }
 
-        body[data-modo="noche"] .card .back {
-            background: linear-gradient(135deg, #34495e, #2c3e50);
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            padding: 14px 0 28px;
         }
 
-        body[data-modo="noche"] .back-content {
-            background: rgba(44, 62, 80, 0.95);
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
         }
 
-        body[data-modo="noche"] .proximamente {
-            background: linear-gradient(135deg, #2c3e50, #34495e);
-        }
-
-        body[data-modo="noche"] .proxi {
-            background: linear-gradient(135deg, #3498db, #2980b9);
-        }
-
-        header {
-            background: #e99ca2;
-            padding: 20px;
-            text-align: center;
-            color: white;
-            font-size: 28px;
-            font-weight: bold;
-            letter-spacing: 2px;
-            animation: pulse 3s infinite;
-            transition: all 0.5s ease;
-        }
-        
-        @keyframes pulse {
-            0% { letter-spacing: 2px; opacity: 1; }
-            50% { letter-spacing: 4px; opacity: 0.9; }
-            100% { letter-spacing: 2px; opacity: 1; }
-        }
-
-        footer {
-            background: #e99ca2;
-            padding: 15px;
-            text-align: center;
-            color: white;
-            font-size: 14px;
-            margin-top: 50px;
-            transition: all 0.5s ease;
-        }
-
-        h2 {
-            text-align: center;
-            margin-top: 40px;
-            margin-bottom: 30px;
-            font-size: 32px;
-            color: #d35a6d;
-            font-weight: 600;
-        }
-
-        body[data-modo="noche"] h2 {
-            color: #ecf0f1;
-        }
-        
-        .corazones {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            top: 0;
-            left: 0;
-            z-index: -1;
-        }
-
-        .corazones span {
-            position: absolute;
-            bottom: -50px;
-            left: calc(100vw * var(--pos));
-            width: 20px;
-            height: 20px;
-            background: rgba(233, 156, 162, 0.6);
-            transform: rotate(45deg);
-            animation: subir 6s linear infinite;
-            border-radius: 5px;
-        }
-
-        .corazones span::before,
-        .corazones span::after {
-            content: "";
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background: rgba(233, 156, 162, 0.6);
+        .mark {
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
+            display: grid;
+            place-items: center;
+            color: #fff;
+            background: linear-gradient(135deg, var(--rose), var(--coral));
+            box-shadow: 0 10px 28px rgba(217, 79, 112, 0.28);
+            flex: 0 0 auto;
         }
 
-        .corazones span::before {
-            top: -10px;
+        .brand strong {
+            display: block;
+            font-size: clamp(1.1rem, 3vw, 1.45rem);
+            line-height: 1;
         }
 
-        .corazones span::after {
-            left: -10px;
+        .brand span {
+            display: block;
+            margin-top: 4px;
+            color: var(--muted);
+            font-size: 0.92rem;
         }
 
-        @keyframes subir {
-            0% {
-                transform: translateY(0) rotate(45deg);
-                opacity: 0.7;
-            }
-            100% {
-                transform: translateY(-120vh) rotate(45deg);
-                opacity: 0;
-            }
-        }
-        
-        .card {
-            width: 260px;
-            height: 340px;
-            perspective: 1500px;
+        .theme-toggle,
+        .close-btn {
+            border: 1px solid var(--line);
+            background: color-mix(in srgb, var(--surface) 84%, transparent);
+            color: var(--ink);
+            cursor: pointer;
+            transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
         }
 
-        .flip-inner {
+        .theme-toggle:hover,
+        .close-btn:hover {
+            transform: translateY(-1px);
+            border-color: color-mix(in srgb, var(--rose) 44%, var(--line));
+        }
+
+        .theme-toggle {
+            min-height: 42px;
+            padding: 0 15px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: minmax(0, 0.9fr) minmax(280px, 1.1fr);
+            gap: 34px;
+            align-items: center;
+            min-height: min(620px, calc(100vh - 136px));
+            padding-bottom: 28px;
+        }
+
+        .hero-copy {
+            max-width: 540px;
+        }
+
+        .eyebrow {
+            color: var(--rose-dark);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-size: 0.78rem;
+            margin-bottom: 14px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: clamp(3.1rem, 10vw, 6.8rem);
+            line-height: 0.9;
+            letter-spacing: 0;
+        }
+
+        .hero-copy p {
+            color: var(--muted);
+            font-size: clamp(1rem, 2.2vw, 1.18rem);
+            line-height: 1.75;
+            margin: 24px 0 0;
+        }
+
+        .counter {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 10px;
+            margin-top: 28px;
+        }
+
+        .counter div {
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 14px 12px;
+            background: color-mix(in srgb, var(--surface) 78%, transparent);
+        }
+
+        .counter strong {
+            display: block;
+            font-size: clamp(1.5rem, 5vw, 2.4rem);
+            line-height: 1;
+            color: var(--rose);
+        }
+
+        .counter span {
+            display: block;
+            margin-top: 7px;
+            color: var(--muted);
+            font-size: 0.86rem;
+        }
+
+        .featured-year {
+            width: 100%;
+        }
+
+        .year-card {
             position: relative;
             width: 100%;
-            height: 100%;
-            text-align: center;
-            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
-            transform-style: preserve-3d;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-        }
-
-        .card:hover .flip-inner {
-            transform: rotateY(180deg);
-        }
-
-        .front, .back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 20px;
+            aspect-ratio: 4 / 5;
+            min-height: 430px;
             overflow: hidden;
+            border: 0;
+            border-radius: 8px;
+            padding: 0;
+            cursor: pointer;
+            color: #fff;
+            box-shadow: var(--shadow);
+            background: #382b30;
+            isolation: isolate;
         }
 
-        .front {
-            background: linear-gradient(135deg, #fff5f5, #ffe8f0);
-            transform: rotateY(0deg);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .front-image {
+        .year-card img {
             width: 100%;
             height: 100%;
+            display: block;
             object-fit: cover;
-            object-position: center;
-            transition: transform 0.3s ease;
+            transition: transform 500ms ease;
         }
 
-        .card:hover .front-image {
-            transform: scale(1.05);
+        .year-card:hover img {
+            transform: scale(1.035);
         }
 
-        .front-overlay {
+        .image-fallback {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-            padding: 20px;
-            color: white;
-        }
-
-        .month-badge {
-            display: inline-block;
-            background: #e99ca2;
-            padding: 8px 20px;
-            border-radius: 30px;
-            font-weight: bold;
-            font-size: 16px;
-            margin-bottom: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
-
-        .month-title {
-            font-size: 22px;
-            font-weight: bold;
-            margin: 0;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-        }
-
-        .back {
-            background: linear-gradient(135deg, #e99ca2, #d88a90);
-            transform: rotateY(180deg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .back p {
-            color: white;
-            font-size: 20px;
-            font-weight: 500;
-            line-height: 1.5;
-            margin: 0;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-            font-family: "Playfair Display", serif;
-        }
-
-        /* Tarjeta de Próximamente */
-        .proximamente {
-            width: 260px;
-            height: 340px;
-            perspective: 1500px;
-        }
-
-        .proxi-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
+            inset: 0;
+            display: none;
+            place-items: center;
+            padding: 32px;
             text-align: center;
-            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
-            transform-style: preserve-3d;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            background:
+                linear-gradient(135deg, rgba(217, 79, 112, 0.92), rgba(143, 199, 181, 0.82)),
+                #382b30;
         }
 
-        .proximamente:hover .proxi-inner {
-            transform: rotateY(180deg);
+        .image-fallback span {
+            max-width: 320px;
+            line-height: 1.55;
+            font-size: 1.05rem;
         }
 
-        .proxi-front, .proxi-back {
+        .year-card.is-missing img {
+            display: none;
+        }
+
+        .year-card.is-missing .image-fallback {
+            display: grid;
+        }
+
+        .year-overlay {
             position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 20px;
+            inset: auto 0 0;
+            padding: clamp(22px, 5vw, 34px);
+            background: linear-gradient(0deg, rgba(20, 13, 17, 0.88), rgba(20, 13, 17, 0));
+            text-align: left;
+            z-index: 1;
+        }
+
+        .year-kicker {
+            display: inline-flex;
+            align-items: center;
+            min-height: 32px;
+            padding: 0 12px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(10px);
+            font-size: 0.86rem;
+        }
+
+        .year-overlay h2 {
+            margin: 15px 0 8px;
+            font-size: clamp(2.4rem, 7vw, 4.6rem);
+            line-height: 0.92;
+            letter-spacing: 0;
+        }
+
+        .year-overlay p {
+            margin: 0;
+            max-width: 430px;
+            color: rgba(255, 255, 255, 0.86);
+            font-size: 1rem;
+            line-height: 1.55;
+        }
+
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 18px;
+            margin: 36px 0 16px;
+            padding-top: 18px;
+            border-top: 1px solid var(--line);
+        }
+
+        .section-title h2 {
+            margin: 0;
+            font-size: clamp(1.7rem, 5vw, 2.7rem);
+            letter-spacing: 0;
+        }
+
+        .section-title p {
+            margin: 6px 0 0;
+            color: var(--muted);
+            line-height: 1.55;
+        }
+
+        .year-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+        }
+
+        .small-year {
+            min-height: 310px;
+        }
+
+        dialog {
+            width: min(1080px, calc(100% - 24px));
+            max-height: calc(100vh - 24px);
+            padding: 0;
+            border: 0;
+            border-radius: 8px;
+            color: var(--ink);
+            background: var(--surface);
+            box-shadow: 0 28px 90px rgba(0, 0, 0, 0.34);
+        }
+
+        dialog::backdrop {
+            background: rgba(20, 13, 17, 0.62);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-shell {
+            max-height: calc(100vh - 24px);
+            overflow: auto;
+        }
+
+        .modal-header {
+            position: sticky;
+            top: 0;
+            z-index: 3;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
+            gap: 14px;
+            padding: 18px clamp(16px, 4vw, 28px);
+            background: color-mix(in srgb, var(--surface) 92%, transparent);
+            border-bottom: 1px solid var(--line);
+            backdrop-filter: blur(14px);
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: clamp(1.35rem, 4vw, 2.2rem);
+        }
+
+        .modal-header p {
+            margin: 4px 0 0;
+            color: var(--muted);
+            font-size: 0.96rem;
+        }
+
+        .close-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            flex: 0 0 auto;
+            font-size: 1.2rem;
+        }
+
+        .months {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            padding: clamp(16px, 4vw, 28px);
+        }
+
+        .month-card {
+            min-height: 360px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--surface);
+            display: flex;
             flex-direction: column;
         }
 
-        .proxi-front {
-            background: linear-gradient(135deg, #ffd6e8, #ffc0cb);
-            transform: rotateY(0deg);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        .month-photo {
+            position: relative;
+            aspect-ratio: 4 / 5;
+            background:
+                linear-gradient(135deg, rgba(242, 143, 121, 0.24), rgba(143, 199, 181, 0.2)),
+                color-mix(in srgb, var(--surface) 84%, var(--rose));
         }
 
-        .proxi-front .emoji {
-            font-size: 64px;
-            margin-bottom: 20px;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .proxi-front h3 {
-            font-size: 28px;
-            color: #e99ca2;
-            margin: 10px 0;
-            font-weight: bold;
-        }
-
-        .proxi-front p {
-            font-size: 16px;
-            color: #d35a6d;
-            margin: 0;
-        }
-
-        .proxi-back {
-            background: linear-gradient(135deg, #d88a90, #e99ca2);
-            transform: rotateY(180deg);
-            color: white;
-            padding: 30px;
-        }
-
-        .proxi-back p {
-            font-size: 22px;
-            font-weight: bold;
-            margin: 0;
-            line-height: 1.4;
-            text-align: center;
-        }
-
-        .proxi-back .heart-decoration {
-            font-size: 40px;
-            margin-top: 20px;
-            animation: pulse 1.5s infinite;
-        }
-
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px; 
-            justify-content: center;
-            padding: 20px 40px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        
-        .contador {
-            text-align: center;
-            margin: 50px 0 30px;
-            font-size: 24px;
-            color: #d35a6d;
-            font-weight: bold;
-        }
-
-        .contador h2 {
-            margin: 0;
-            font-size: 28px;
-        }
-
-        .contador span {
-            font-size: 42px;
-            color: #e99ca2;
-            display: inline-block;
-            margin: 0 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-
-        body[data-modo="noche"] .contador span {
-            color: #3498db;
-        }
-        
-        #modo-btn {
+        .month-photo img {
+            width: 100%;
+            height: 100%;
             display: block;
-            margin: 20px auto;
-            padding: 12px 28px;
-            background-color: #e99ca2;
-            color: white;
-            border: none;
-            border-radius: 40px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: "Playfair Display", serif;
-            font-weight: 600;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        
-        #modo-btn:hover {
-            background-color: #d88a90;
-            transform: scale(1.05);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+            object-fit: cover;
         }
 
-        body[data-modo="noche"] #modo-btn {
-            background-color: #3498db;
+        .month-photo .missing {
+            position: absolute;
+            inset: 0;
+            display: none;
+            place-items: center;
+            padding: 20px;
+            text-align: center;
+            color: var(--muted);
+            line-height: 1.45;
         }
 
-        body[data-modo="noche"] #modo-btn:hover {
-            background-color: #2980b9;
+        .month-card.is-missing img {
+            display: none;
         }
 
-        @media (max-width: 768px) {
-            .container {
-                gap: 20px;
-                padding: 15px;
+        .month-card.is-missing .missing {
+            display: grid;
+        }
+
+        .month-body {
+            padding: 16px;
+            flex: 1;
+        }
+
+        .month-body strong {
+            display: block;
+            color: var(--rose-dark);
+            font-size: 1.04rem;
+            margin-bottom: 8px;
+        }
+
+        .month-body h3 {
+            margin: 0 0 12px;
+            font-size: 1.45rem;
+            letter-spacing: 0;
+        }
+
+        .month-body p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.55;
+        }
+
+        .empty-year {
+            grid-column: 1 / -1;
+            min-height: 240px;
+            display: grid;
+            place-items: center;
+            padding: 28px;
+            border: 1px dashed var(--line);
+            border-radius: 8px;
+            text-align: center;
+            color: var(--muted);
+            background:
+                linear-gradient(135deg, rgba(242, 143, 121, 0.12), rgba(143, 199, 181, 0.12)),
+                color-mix(in srgb, var(--surface) 86%, transparent);
+        }
+
+        .empty-year strong {
+            display: block;
+            color: var(--ink);
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+        }
+
+        .empty-year p {
+            max-width: 520px;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .footer {
+            margin-top: 44px;
+            padding: 22px 0 8px;
+            border-top: 1px solid var(--line);
+            color: var(--muted);
+            text-align: center;
+        }
+
+        @media (max-width: 760px) {
+            .page {
+                width: min(100% - 22px, 1120px);
+                padding-top: 14px;
             }
-            .card, .proximamente {
-                width: 220px;
-                height: 300px;
+
+            .topbar {
+                align-items: flex-start;
+                padding-bottom: 18px;
             }
-            .back p, .proxi-back p {
-                font-size: 16px;
+
+            .brand {
+                gap: 10px;
             }
-            .month-title {
-                font-size: 18px;
+
+            .brand span {
+                font-size: 0.84rem;
             }
-            .contador h2 {
-                font-size: 22px;
+
+            .theme-toggle {
+                width: 42px;
+                padding: 0;
+                justify-content: center;
             }
-            .contador span {
-                font-size: 32px;
+
+            .theme-toggle span:last-child {
+                display: none;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 22px;
+                min-height: 0;
+            }
+
+            .hero-copy p {
+                margin-top: 18px;
+            }
+
+            .counter {
+                grid-template-columns: 1fr;
+            }
+
+            .year-card {
+                min-height: 390px;
+            }
+
+            .section-title {
+                display: block;
+                margin-top: 24px;
+            }
+
+            .months {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        Cris y Lore por siempre ❤️
-    </header>
-    <h2>✨ Nuestros Momentos ✨</h2>
-    <button id="modo-btn">🌙 Cambiar a Modo Noche</button>
-    <div class="corazones"></div>
-    <div class="container">
-        <!-- Primer mes -->
-        <div class="card">
-            <div class="flip-inner">
-                <div class="front">
-                    <img class="front-image" src="M1.jpeg" alt="Primer mes" onerror="this.style.display='none'">
-                    <div class="front-overlay">
-                        <div class="month-badge">❤️ Mes 1 ❤️</div>
-                        <h3 class="month-title">Septiembre 2025</h3>
-                    </div>
-                </div>
-                <div class="back">
-                    <p>✨ Entraste en mi corazón de la forma más bonita que existe ✨</p>
+    <main class="page">
+        <nav class="topbar" aria-label="Principal">
+            <div class="brand">
+                <div class="mark" aria-hidden="true">♥</div>
+                <div>
+                    <strong>Cris y Lore</strong>
+                    <span>Nuestra historia por años</span>
                 </div>
             </div>
-        </div>
+            <button class="theme-toggle" id="themeToggle" type="button" aria-label="Cambiar modo">
+                <span aria-hidden="true">☾</span>
+                <span>Modo noche</span>
+            </button>
+        </nav>
 
-        <!-- Segundo mes -->
-        <div class="card">
-            <div class="flip-inner">
-                <div class="front">
-                    <img class="front-image" src="M2.jpeg" alt="Segundo mes" onerror="this.style.display='none'">
-                    <div class="front-overlay">
-                        <div class="month-badge">❤️ Mes 2 ❤️</div>
-                        <h3 class="month-title">Octubre 2025</h3>
+        <section class="hero" aria-labelledby="main-title">
+            <div class="hero-copy">
+                <div class="eyebrow">Desde el 24 de agosto de 2025</div>
+                <h1 id="main-title">Nuestro amor</h1>
+                <p>
+                    Un lugar para guardar cada mes juntos, ahora ordenado por años para que
+                    cada etapa tenga su propia entrada y sus recuerdos completos.
+                </p>
+                <div class="counter" aria-label="Tiempo juntos">
+                    <div>
+                        <strong id="daysTogether">0</strong>
+                        <span>días juntos</span>
+                    </div>
+                    <div>
+                        <strong id="monthsSaved">0</strong>
+                        <span>meses guardados</span>
+                    </div>
+                    <div>
+                        <strong id="yearsSaved">0</strong>
+                        <span>años especiales</span>
                     </div>
                 </div>
-                <div class="back">
-                    <p>💕 Me enamoré totalmente de ti mi amor 💕</p>
-                </div>
             </div>
-        </div>
 
-        <!-- Tercer mes -->
-        <div class="card">
-            <div class="flip-inner">
-                <div class="front">
-                    <img class="front-image" src="M3.jpeg" alt="Tercer mes" onerror="this.style.display='none'">
-                    <div class="front-overlay">
-                        <div class="month-badge">❤️ Mes 3 ❤️</div>
-                        <h3 class="month-title">Noviembre 2025</h3>
-                    </div>
-                </div>
-                <div class="back">
-                    <p>🌟 Eres tú con quien definitivamente quiero pasar el resto de mis días 🌟</p>
-                </div>
-            </div>
-        </div>
+            <div class="featured-year" id="featuredYear"></div>
+        </section>
 
-        <!-- Cuarto mes -->
-        <div class="card">
-            <div class="flip-inner">
-                <div class="front">
-                    <img class="front-image" src="M4.jpeg" alt="Cuarto mes" onerror="this.style.display='none'">
-                    <div class="front-overlay">
-                        <div class="month-badge">❤️ Mes 4 ❤️</div>
-                        <h3 class="month-title">Diciembre 2025</h3>
-                    </div>
-                </div>
-                <div class="back">
-                    <p>🎄 ¿Navidad juntos? y las que nos faltan 🎄</p>
+        <section aria-labelledby="years-title">
+            <div class="section-title">
+                <div>
+                    <h2 id="years-title">Álbumes</h2>
+                    <p>Abre cada año para ver sus meses, fotos y mensajes.</p>
                 </div>
             </div>
-        </div>
 
-        <!-- Quinto mes -->
-        <div class="card">
-            <div class="flip-inner">
-                <div class="front">
-                    <img class="front-image" src="M5.jpeg" alt="Quinto mes" onerror="this.style.display='none'">
-                    <div class="front-overlay">
-                        <div class="month-badge">❤️ Mes 5 ❤️</div>
-                        <h3 class="month-title">Enero 2026</h3>
-                    </div>
-                </div>
-                <div class="back">
-                    <p>💖 Me encanta como eres conmigo, corazón 💖</p>
-                </div>
-            </div>
-        </div>
+            <div class="year-grid" id="yearGrid"></div>
+        </section>
 
-        <!-- Sexto mes -->
-        <div class="card">
-            <div class="flip-inner">
-                <div class="front">
-                    <img class="front-image" src="M6.jpeg" alt="Sexto mes" onerror="this.style.display='none'">
-                    <div class="front-overlay">
-                        <div class="month-badge">❤️ Mes 6 ❤️</div>
-                        <h3 class="month-title">Febrero 2026</h3>
-                    </div>
-                </div>
-                <div class="back">
-                    <p>😊 Aún no puedo creer que llevamos tanto tiempo, ¡ME ENCANTA! 😊</p>
-                </div>
-            </div>
-        </div>
+        <footer class="footer">
+            Hecho con cariño para ti.
+        </footer>
+    </main>
 
-        <!-- Séptimo mes -->
-        <div class="card">
-            <div class="flip-inner">
-                <div class="front">
-                    <img class="front-image" src="M7.jpeg" alt="Séptimo mes" onerror="this.style.display='none'">
-                    <div class="front-overlay">
-                        <div class="month-badge">❤️ Mes 7 ❤️</div>
-                        <h3 class="month-title">Marzo 2026</h3>
-                    </div>
+    <dialog id="yearDialog">
+        <div class="modal-shell">
+            <div class="modal-header">
+                <div>
+                    <h2 id="dialogTitle">Año</h2>
+                    <p id="dialogSubtitle">Recuerdos guardados.</p>
                 </div>
-                
-                <div class="back">
-                    <p>🌹 Mi niña, anhelo estar siempre a tu lado 🌹</p>
-                </div>
+                <button class="close-btn" type="button" data-close aria-label="Cerrar">×</button>
             </div>
-        </div>
-        
-        <div class="card">
-            <div class="flip-inner">
-                <div class="front">
-                    <img class="front-image" src="M8.jpeg" alt="Octavo mes" onerror="this.style.display='none'">
-                    <div class="front-overlay">
-                        <div class="month-badge">❤️ Mes 8 ❤️</div>
-                        <h3 class="month-title">Abril 2026</h3>
-                    </div>
-                </div>
-                <div class="back">
-                    <p>💕 Personalmente pienso que ya solo mi amor y cariño es para ti 💕</p>
-                </div>
-            </div>
-        </div>
 
-                <div class="card">
-            <div class="flip-inner">
-                <div class="front">
-                    <img class="front-image" src="M9.jpeg" alt="Noveno mes" onerror="this.style.display='none'">
-                    <div class="front-overlay">
-                        <div class="month-badge">❤️ Mes 9 ❤️</div>
-                        <h3 class="month-title">Mayo 2026</h3>
-                    </div>
-                </div>
-                <div class="back">
-                    <p>💕 Hoy tuvieramos un pelon jsjsjs, pero adoro pasarlo contigo nena 💕</p>
-                </div>
-            </div>
+            <div class="months" id="monthsGrid"></div>
         </div>
-        
-        <div class="card">
-            <div class="flip-inner">
-                <div class="front">
-                    <img class="front-image" src="M10.jpeg" alt="Decimo mes" onerror="this.style.display='none'">
-                    <div class="front-overlay">
-                        <div class="month-badge">❤️ Mes 10 ❤️</div>
-                        <h3 class="month-title">Junio 2026</h3>
-                    </div>
-                </div>
-                <div class="back">
-                    <p>💕 La vida contigo es tan bonita 💕</p>
-                </div>
-            </div>
-        </div>
+    </dialog>
 
-                <div class="card">
-            <div class="flip-inner">
-                <div class="front">
-                    <img class="front-image" src="M11.jpeg" alt="Onceaavo mes" onerror="this.style.display='none'">
-                    <div class="front-overlay">
-                        <div class="month-badge">❤️ Mes 11 ❤️</div>
-                        <h3 class="month-title">Julio 2026</h3>
-                    </div>
-                </div>
-                <div class="back">
-                    <p>💖 A tan solo un mes de nuestro primer aniversario 💖</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Próximamente -->
-        <div class="proximamente">
-            <div class="proxi-inner">
-                <div class="proxi-front">
-                    <div class="emoji">✨💑✨</div>
-                    <h3>Próximamente</h3>
-                    <p>Más momentos juntos</p>
-                </div>
-                <div class="proxi-back">
-                    <p>💫 Venga, vamos por toda una vida juntos 💫</p>
-                    <div class="heart-decoration">❤️</div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="contador">
-        <h2>📅 Hemos estado juntos por <span id="dias"></span> días 📅</h2>
-    </div>
-    <footer>
-        Hecho con cariño para ti 💕
-    </footer>
-    
     <script>
-        const btn = document.getElementById("modo-btn");
-        
-        btn.onclick = function() {
-            const nuevoModo = document.body.dataset.modo === "noche" ? "dia" : "noche";
-            document.body.dataset.modo = nuevoModo;            
-            this.innerHTML = nuevoModo === "noche" ? "☀️ Cambiar a Modo Día" : "🌙 Cambiar a Modo Noche";
+        // Para agregar más años o meses, edita solamente este arreglo.
+        const years = [
+            {
+                id: "year-1",
+                number: 1,
+                cover: "A1.jpeg",
+                range: "Agosto 2025 a agosto 2026",
+                description: "Del primer mes al primer aniversario, todos nuestros momentos en una sola galería.",
+                emptyText: "Este año todavía no tiene meses agregados.",
+                memories: [
+                    {
+                        month: 1,
+                        file: "M1.jpeg",
+                        title: "Septiembre 2025",
+                        text: "Entraste en mi corazón de la forma más bonita que existe."
+                    },
+                    {
+                        month: 2,
+                        file: "M2.jpeg",
+                        title: "Octubre 2025",
+                        text: "Me enamoré totalmente de ti, mi amor."
+                    },
+                    {
+                        month: 3,
+                        file: "M3.jpeg",
+                        title: "Noviembre 2025",
+                        text: "Eres tú con quien definitivamente quiero pasar el resto de mis días."
+                    },
+                    {
+                        month: 4,
+                        file: "M4.jpeg",
+                        title: "Diciembre 2025",
+                        text: "¿Navidad juntos? Y todas las que nos faltan."
+                    },
+                    {
+                        month: 5,
+                        file: "M5.jpeg",
+                        title: "Enero 2026",
+                        text: "Me encanta cómo eres conmigo, corazón."
+                    },
+                    {
+                        month: 6,
+                        file: "M6.jpeg",
+                        title: "Febrero 2026",
+                        text: "Aún no puedo creer que llevamos tanto tiempo. Me encanta."
+                    },
+                    {
+                        month: 7,
+                        file: "M7.jpeg",
+                        title: "Marzo 2026",
+                        text: "Mi niña, anhelo estar siempre a tu lado."
+                    },
+                    {
+                        month: 8,
+                        file: "M8.jpeg",
+                        title: "Abril 2026",
+                        text: "Mi amor y mi cariño son para ti."
+                    },
+                    {
+                        month: 9,
+                        file: "M9.jpeg",
+                        title: "Mayo 2026",
+                        text: "Adoro pasar cada momento contigo, nena."
+                    },
+                    {
+                        month: 10,
+                        file: "M10.jpeg",
+                        title: "Junio 2026",
+                        text: "La vida contigo es tan bonita."
+                    },
+                    {
+                        month: 11,
+                        file: "M11.jpeg",
+                        title: "Julio 2026",
+                        text: "A tan solo un mes de nuestro primer aniversario."
+                    }
+                ]
+            },
+            {
+                id: "year-2",
+                number: 2,
+                cover: "A2.jpeg",
+                range: "Septiembre 2026 a agosto 2027",
+                description: "El segundo año ya está listo para llenarse con nuevos meses.",
+                emptyText: "Cuando quieras empezar este año, agrega aquí tus fotos y mensajes.",
+                memories: [
+                    {
+                        month: 1,
+                        file: "A2M1.jpeg",
+                        title: "Septiembre 2026",
+                        text: "Comienza nuestro segundo año juntos."
+                    }
+                ]
+            }
+        ];
+
+        const featuredYear = document.getElementById("featuredYear");
+        const yearGrid = document.getElementById("yearGrid");
+        const monthsGrid = document.getElementById("monthsGrid");
+        const themeToggle = document.getElementById("themeToggle");
+        const daysTogether = document.getElementById("daysTogether");
+        const monthsSaved = document.getElementById("monthsSaved");
+        const yearsSaved = document.getElementById("yearsSaved");
+        const yearDialog = document.getElementById("yearDialog");
+        const dialogTitle = document.getElementById("dialogTitle");
+        const dialogSubtitle = document.getElementById("dialogSubtitle");
+        const startDate = new Date("2025-08-24T00:00:00");
+
+        const totalMemories = years.reduce((total, year) => total + year.memories.length, 0);
+        const today = new Date();
+        const dayDifference = Math.floor((today - startDate) / 86400000);
+
+        daysTogether.textContent = Math.max(dayDifference, 0);
+        monthsSaved.textContent = totalMemories;
+        yearsSaved.textContent = years.length;
+
+        const yearCard = (year, isFeatured = false) => `
+            <button class="year-card ${isFeatured ? "" : "small-year"}" type="button" data-year-id="${year.id}" aria-label="Abrir año ${year.number}">
+                <img src="${year.cover}" alt="Portada del año ${year.number}" loading="${isFeatured ? "eager" : "lazy"}">
+                <div class="image-fallback">
+                    <span>Agrega la foto ${year.cover} en esta carpeta para verla como portada del año ${year.number}.</span>
+                </div>
+                <div class="year-overlay">
+                    <span class="year-kicker">${year.memories.length} ${year.memories.length === 1 ? "recuerdo" : "recuerdos"}</span>
+                    <h2>Año ${year.number}</h2>
+                    <p>${isFeatured ? year.description : year.range}</p>
+                </div>
+            </button>
+        `;
+
+        const monthCard = (memory) => `
+            <article class="month-card">
+                <div class="month-photo">
+                    <img src="${memory.file}" alt="Recuerdo del mes ${memory.month}" loading="lazy">
+                    <div class="missing">Agrega ${memory.file} para mostrar esta foto.</div>
+                </div>
+                <div class="month-body">
+                    <strong>Mes ${memory.month}</strong>
+                    <h3>${memory.title}</h3>
+                    <p>${memory.text}</p>
+                </div>
+            </article>
+        `;
+
+        const emptyYear = (year) => `
+            <div class="empty-year">
+                <div>
+                    <strong>Año ${year.number} listo para nuevos recuerdos</strong>
+                    <p>${year.emptyText}</p>
+                </div>
+            </div>
+        `;
+
+        const markMissingImage = (image) => {
+            const card = image.closest(".year-card, .month-card");
+            if (card) {
+                card.classList.add("is-missing");
+            }
         };
 
-        const inicio = new Date("2025-08-24");
-        const hoy = new Date();
+        const bindImageFallbacks = (root = document) => {
+            root.querySelectorAll("img").forEach((image) => {
+                image.addEventListener("error", () => {
+                    markMissingImage(image);
+                }, { once: true });
 
-        const diferencia = Math.floor((hoy - inicio) / (1000 * 60 * 60 * 24));
+                if (image.complete && image.naturalWidth === 0) {
+                    markMissingImage(image);
+                }
+            });
+        };
 
-        document.getElementById("dias").textContent = diferencia;
+        const openYear = (yearId) => {
+            const year = years.find((item) => item.id === yearId);
+            if (!year) {
+                return;
+            }
 
-        for (let i = 0; i < 20; i++) {
-            const h = document.createElement("span");
-            h.style.setProperty("--pos", Math.random());
-            h.style.animationDelay = (Math.random() * 5) + "s";
-            h.style.animationDuration = (4 + Math.random() * 4) + "s";
-            document.querySelector(".corazones").appendChild(h);
-        }
+            dialogTitle.textContent = `Año ${year.number}`;
+            dialogSubtitle.textContent = year.range;
+            monthsGrid.innerHTML = year.memories.length
+                ? year.memories.map(monthCard).join("")
+                : emptyYear(year);
+
+            bindImageFallbacks(monthsGrid);
+
+            if (typeof yearDialog.showModal === "function") {
+                yearDialog.showModal();
+            } else {
+                yearDialog.setAttribute("open", "");
+            }
+        };
+
+        featuredYear.innerHTML = yearCard(years[0], true);
+        yearGrid.innerHTML = years.map((year) => yearCard(year)).join("");
+        bindImageFallbacks();
+
+        document.addEventListener("click", (event) => {
+            const yearButton = event.target.closest("[data-year-id]");
+            if (yearButton) {
+                openYear(yearButton.dataset.yearId);
+            }
+        });
+
+        document.querySelector("[data-close]").addEventListener("click", () => {
+            yearDialog.close();
+        });
+
+        yearDialog.addEventListener("click", (event) => {
+            if (event.target === yearDialog) {
+                yearDialog.close();
+            }
+        });
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape" && yearDialog.open) {
+                yearDialog.close();
+            }
+        });
+
+        themeToggle.addEventListener("click", () => {
+            const isNight = document.body.dataset.theme === "night";
+            document.body.dataset.theme = isNight ? "day" : "night";
+            themeToggle.innerHTML = isNight
+                ? '<span aria-hidden="true">☾</span><span>Modo noche</span>'
+                : '<span aria-hidden="true">☀</span><span>Modo día</span>';
+        });
     </script>
 </body>
 </html>
