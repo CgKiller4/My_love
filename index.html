@@ -544,12 +544,12 @@
                 <div class="mark" aria-hidden="true">♥</div>
                 <div>
                     <strong>Cris y Lore</strong>
-                    <span>Nuestra historia por años</span>
+                    <span>Nuestra historia de amor</span>
                 </div>
             </div>
             <button class="theme-toggle" id="themeToggle" type="button" aria-label="Cambiar modo">
                 <span aria-hidden="true">☾</span>
-                <span>Modo noche</span>
+                <span>Modo nocturno</span>
             </button>
         </nav>
 
@@ -558,8 +558,7 @@
                 <div class="eyebrow">Desde el 24 de agosto de 2025</div>
                 <h1 id="main-title">Nuestro amor</h1>
                 <p>
-                    Un lugar para guardar cada mes juntos, ahora ordenado por años para que
-                    cada etapa tenga su propia entrada y sus recuerdos completos.
+                    Este será lugar para guardar cada mes juntos, pero incluso, cada dia es especial, ashi que vamos a compartir más recuerdos y momentos juntos.
                 </p>
                 <div class="counter" aria-label="Tiempo juntos">
                     <div>
@@ -584,7 +583,7 @@
             <div class="section-title">
                 <div>
                     <h2 id="years-title">Álbumes</h2>
-                    <p>Abre cada año para ver sus meses, fotos y mensajes.</p>
+                    <p>Será una bonita galería corazón</p>
                 </div>
             </div>
 
@@ -611,7 +610,7 @@
     </dialog>
 
     <script>
-        // Para agregar más años o meses, edita solamente este arreglo.
+
         const years = [
             {
                 id: "year-1",
@@ -619,7 +618,7 @@
                 cover: "A1.jpeg",
                 range: "Agosto 2025 a agosto 2026",
                 description: "Del primer mes al primer aniversario, todos nuestros momentos en una sola galería.",
-                emptyText: "Este año todavía no tiene meses agregados.",
+                emptyText: "Aun estamos preparando nuestras fotos de recuerdos jijiji",
                 memories: [
                     {
                         month: 1,
@@ -687,6 +686,12 @@
                         title: "Julio 2026",
                         text: "A tan solo un mes de nuestro primer aniversario."
                     }
+                    {
+                        month: 12,
+                        file: "M12.jpeg",
+                        title: "Agosto 2026",
+                        text: "Ves que bonito se siente amarnos? Cumplamos mas años juntos"
+                    }
                 ]
             },
             {
@@ -694,8 +699,8 @@
                 number: 2,
                 cover: "A2.jpeg",
                 range: "Septiembre 2026 a agosto 2027",
-                description: "El segundo año ya está listo para llenarse con nuevos meses.",
-                emptyText: "Cuando quieras empezar este año, agrega aquí tus fotos y mensajes.",
+                description: "Pronto lleno de bonitos recuerdos <3",
+                emptyText: "Próximamente bonita",
                 memories: [
                     {
                         month: 1,
@@ -731,7 +736,7 @@
             <button class="year-card ${isFeatured ? "" : "small-year"}" type="button" data-year-id="${year.id}" aria-label="Abrir año ${year.number}">
                 <img src="${year.cover}" alt="Portada del año ${year.number}" loading="${isFeatured ? "eager" : "lazy"}">
                 <div class="image-fallback">
-                    <span>Agrega la foto ${year.cover} en esta carpeta para verla como portada del año ${year.number}.</span>
+                    <span>Una bonita portada pronto${year.number}.</span>
                 </div>
                 <div class="year-overlay">
                     <span class="year-kicker">${year.memories.length} ${year.memories.length === 1 ? "recuerdo" : "recuerdos"}</span>
@@ -745,7 +750,7 @@
             <article class="month-card">
                 <div class="month-photo">
                     <img src="${memory.file}" alt="Recuerdo del mes ${memory.month}" loading="lazy">
-                    <div class="missing">Agrega ${memory.file} para mostrar esta foto.</div>
+                    <div class="missing">Aqui estaremos proximamente</div>
                 </div>
                 <div class="month-body">
                     <strong>Mes ${memory.month}</strong>
